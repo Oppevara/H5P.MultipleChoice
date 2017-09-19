@@ -1,0 +1,224 @@
+/*	import */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+/*	anim  */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(120,180,255, 1); }
+  70% { box-shadow: 0 0 0 10px rgba(120,180,255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(120,180,255, 0); }
+}
+
+@keyframes smack {
+	0% { transform: scale(5); opacity:0;}
+	50% { transform: scale(1); opacity:1;}
+	100% { transform: scale(1); opacity:1;}
+}
+
+/*	blanker  */
+
+.blanker {	
+	padding:5px;
+	margin-top:5px;
+	position:relative;
+}
+
+.blanker .inner {
+	border-bottom:1px solid rgba(0,0,0,0.2);
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+/*	toolbar  */
+
+.blanker_toolbar {
+	position:absolute;
+	right:0;
+	bottom:-25px;
+	
+	cursor:arrow;	
+	font-family: 'Open Sans', arial;
+	font-size: 12px;
+	
+	height:23px;
+}
+
+.blanker_toolbar .score_view div, .blanker_toolbar .filled_view div {
+	display:inline-block;
+}
+
+.blanker_toolbar .score_view {
+	position:absolute;
+	right:0px;
+	top:30px;
+	width:100px;
+	opacity:0;
+	transition:top 0.5s, opacity 0.5s;
+	font-weight:bold;
+}
+
+.blanker_toolbar[data-score_mode] .score_view {
+	top:0px;
+	opacity:1;
+}
+
+.blanker_toolbar .filled_view {
+	position:absolute;
+	right:0px;
+	top:0px;
+	width:100px;
+	opacity:1;
+	transition:top 0.5s, opacity 0.5s;
+}
+
+.blanker_toolbar[data-score_mode] .filled_view {
+	top:-30px;
+	opacity:0;
+}
+
+.blanker_toolbar[data-score_mode] .score_count {
+	animation: smack 1s 1;
+	animation-timing-function: ease-in;
+}
+
+[data-blanker_count_complete] .filled_count, [data-blanker_count_complete] .filled_total {
+	color:rgba(0,180,0,1);
+}
+
+[data-blanker_count_complete] .button_ok {
+	background-color:rgba(120,180,255,1);
+}
+
+[data-blanker_count_complete] .button_ok:not(:hover) {
+	animation: pulse 1s infinite;
+}
+
+/*	buttons  */
+.blanker_button {
+	display:inline-block;
+	background-color:rgba(160,160,160,1);
+	padding:3px;
+	padding-right:10px;
+	padding-left:10px;
+	margin-left:5px;
+	border-radius:6px;
+	cursor:pointer;
+	color:white;
+
+}
+
+.blanker_button.button_retry {
+	background-color:rgba(120,180,255,1);
+}
+
+/*	blank boxes */
+
+.blank {
+	asdborder:1px solid rgba(0,0,0,0.1);
+	border-radius:4px;
+	position:relative;
+}
+
+.blank:before {
+	content:"";
+	position:absolute;
+	left:0;right:0;bottom:0;
+	height:0;
+	border-bottom: 2px solid rgba(160,160,160,1);
+}
+
+.blank:hover:before {
+	border-bottom: 2px solid rgba(120,180,255,1);
+}
+
+.blank:not([data-empty]):before {
+	border-bottom: 2px solid rgba(120,180,255,1);
+}
+
+.blank[data-correct]:before {
+	border-bottom: 2px solid rgba(120,255,180,1);
+}
+
+.blank[data-incorrect]:before {
+	border-bottom: 2px solid rgba(255,120,120,1);
+}
+
+.blanker .fill_blank {
+	display:inline-block;
+	min-width:40px;
+	text-align:center;
+	outline:none;	
+}
+
+.blanker .multiple_choice {
+	outline:none;
+	border:none;
+	font-family:inherit;
+}
+
+
+.blanker[data-toolbar_hover] .blank[data-empty] > * {
+	box-shadow:0 0 10px rgba(120,180,255,1);
+	transition:box-shadow 0.2s;
+	animation:pulse 1s infinite;
+}
+
+/*	hint */
+
+.blanker_hint {
+	position:relative;
+	width:16px;
+	height:16px;
+	display:inline-block;
+	margin-right:2px;
+}
+
+.blanker_hint:before {
+	position:absolute;
+	content:"i ";
+	background-color:rgba(0,0,0,0.4);
+	color:white;
+	font-family:arial;
+	font-size:12px;
+	text-align:center;
+	left:0px;
+	top:0px;
+	width:14px;
+	height:14px;
+	margin:2px;
+
+	border-radius:8px;
+}
+
+.blanker_hint:hover:before, .blanker_hint[data-active]:before {
+	background-color:rgba(120,180,255,1);
+}
+
+.blanker_hint > * {
+	position:relative;
+	top:-25px;
+	left:0;
+	color:white;
+	background-color:rgba(120,180,255,1);
+	padding:4px;
+	border-radius:4px;
+	min-width:40px;
+	text-align:center;
+	white-space: nowrap;
+	visibility:hidden;
+}
+
+.blanker_hint > *:after {
+	content:"";
+	position:absolute;
+	top:100%;
+	left:5px;
+	width:0px;
+	border-left:5px solid transparent;
+	border-right:5px solid transparent;
+	border-top:5px solid rgba(120,180,255,1);
+	
+}
+
+.blanker_hint:hover > span, .blanker_hint[data-active] > span {
+	visibility:visible;
+}
