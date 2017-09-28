@@ -160,7 +160,7 @@ class blanker {
 	}
 	
 	build_as_multiple_choice() {
-		var inner = '<select class="multiple_choice">';
+		var inner = '<select class="multiple_choice" onChange="blanker.check_el(this.parentElement)">';
 		inner += '<option value=""></option>';
 		for (var i = 0; i < this.options.length; i++) {
 			inner += '<option value="' + this.options[i].text +'">' + this.options[i].text + '</option>';
@@ -204,6 +204,7 @@ blanker.check_el = function(el) {
 
 	if (blank.check_answer(answer)) {
 		el.setAttribute("data-confirm_token", confirm_token.generate());
+		blanker_form.seek_update(el);
 		return true;
 	} else if (el.hasAttribute("data-confirm_token")) {
 		var token = el.getAttribute("data-confirm_token");
@@ -211,6 +212,7 @@ blanker.check_el = function(el) {
 		confirm_token.destroy(token);
 	}
 	
+	blanker_form.seek_update(el);
 	return false;
 }
 
@@ -229,8 +231,6 @@ class blanker_form {
 		
 		//	create header
 		var header = '<div class="blanker" data-blanker_field_count="' + sections.length + '" ';
-		header += 'onKeyUp="blanker_form.update_count(this);" '
-		header += 'onMouseUp="blanker_form.update_count(this);" '
 		header += ">";
 
 		//	create toolbar
@@ -279,6 +279,14 @@ blanker_form.reset = function(form_el) {
 	}
 }
 
+blanker_form.seek_update = function(el) {
+	var form_el;
+	while ((form_el = el.querySelector(".blanker")) == null) {
+		el = el.parentElement;
+	}
+	blanker_form.update_count(form_el);
+}
+
 blanker_form.check = function(form_el) {
 	if (form_el.querySelector("[data-blanker_count_complete]") == null) return;
 	form_el.querySelector(".blanker_toolbar").setAttribute("data-score_mode", "");
@@ -299,7 +307,6 @@ blanker_form.check = function(form_el) {
 	
 	var score_fraction = score / blanks.length;
 	var color = "rgb(" + Math.floor(Math.sqrt((1 - score_fraction) * 65025 * 0.5)) + "," + Math.floor(Math.sqrt(score_fraction * 65025 * 0.5)) + "," + Math.floor(0) + ")";
-	console.log(color);
 	score_el.style.color = color;
 }
 
@@ -318,17 +325,3 @@ blanker_form.update_count = function(form_el) {
 }
 
 
-addEventListener("load", function() {
-	CKEDITOR.replace( 'editor1' );
-	var editor = CKEDITOR.instances.editor1;
-	var present_box = document.querySelector("#present_box");
-	
-	var present = function() {
-		var data = editor.getData();
-		var form = new blanker_form(data);
-		present_box.innerHTML = form.html;
-	}
-	present();
-	document.querySelector("#present_button").addEventListener("click", present);
-
-});

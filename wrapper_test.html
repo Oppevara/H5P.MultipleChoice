@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<script src="ckeditor/ckeditor.js"></script>
+		<script src="util.js"></script>
+		<script src="blanker.js"></script>
+		<script src="multiple_choice_wrapper.js"></script>
+		<link rel="stylesheet" type="text/css" href="blanker.css"/>
+	</head>
+	<body>
+	
+	<div id="editor_box"></div>
+	<br><br>
+	<div id="viewer_box"></div>
+	<button onClick="viewer.data = editor.data">press me</button>
+
+		<script>
+		addEventListener("load", function() {
+			window.editor = new multiple_choice_wrapper(document.querySelector("#editor_box"), "editor", 800, 300);
+			window.viewer = new multiple_choice_wrapper(document.querySelector("#viewer_box"), "viewer", 800, 300);
+
+			editor.data = '<p><span style="font-family:Arial,Helvetica,sans-serif"><span style="font-size:14px"><strong>Grand Test!</strong></span></span></p><ol><li><span style="font-family:Arial,Helvetica,sans-serif">Test fill blank here *hai/wat/no:huh?*, yes!</span></li><li><span style="font-family:Arial,Helvetica,sans-serif">And maybe test multiple choice *here/not here~/somewhere else~:its not not here*?</span></li><li><span style="font-family:Arial,Helvetica,sans-serif">This is just for the *lulz~/good times~/bees/not bees~:it&#39;s bees*</span></li></ol><p><span style="font-family:Arial,Helvetica,sans-serif">Cool. </span><span style="color:#e74c3c"><span style="font-family:Arial,Helvetica,sans-serif">Cool</span> <span style="font-family:Comic Sans MS,cursive">texts</span>, sweet.</span></p>';
+		});
+
+		</script>
+	</body>
+
+
+</html>

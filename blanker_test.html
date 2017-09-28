@@ -20,6 +20,23 @@
 		</textarea>
 		<button id="present_button">To present</button>
 		<div id="present_box"></div>
+
+		<script>
+		addEventListener("load", function() {
+	CKEDITOR.replace( 'editor1' );
+	var editor = CKEDITOR.instances.editor1;
+	var present_box = document.querySelector("#present_box");
+	
+	var present = function() {
+		var data = editor.getData();
+		var form = new blanker_form(data);
+		present_box.innerHTML = form.html;
+	}
+	present();
+	document.querySelector("#present_button").addEventListener("click", present);
+
+});
+</script>
 	</body>
 
 
