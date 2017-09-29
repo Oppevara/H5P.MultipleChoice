@@ -7,7 +7,7 @@
   "author": "Karli Raudsepp",
   "machineName": "H5P.MultipleChoice",
   "preloadedJs": [
-    { "path": "ckeditor/ckeditor.js" },
+    { "path": "ckeditor_webloader.js" },
     { "path": "util.js" },
     { "path": "blanker.js" },
     { "path": "multiple_choice_wrapper.js" },

@@ -20,6 +20,7 @@ H5P.MultipleChoice = (function ($) {
     try {
       this.multiple_choice.data = this.data.data;
     } catch(ex) {}
+    
   };
  
   return C;
