@@ -15,6 +15,7 @@ H5P.MultipleChoice = (function ($) {
     var el_applet_container = build("div", undefined, el);
     el_applet_container.id = random_string();
 
+
     this.multiple_choice = new multiple_choice_wrapper(el_applet_container, "viewer");
     try {
       this.multiple_choice.data = this.data.data;

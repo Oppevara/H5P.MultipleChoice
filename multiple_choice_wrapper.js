@@ -31,9 +31,11 @@ function multiple_choice_wrapper(el, mode, width, height) {
 		}
 	});
 
-	this._sync_size = function(w, h) {
-		this.el.style.with = this._width + "px";
-		this.el.style.height = this._height + "px";
+	this._sync_size = function() {
+		//this.el.style.with = this._width + "px";
+		//this.el.style.height = this._height + "px";
+		this.el.style.width = "auto";	//	auto size pending size widget implementation
+		this.el.style.height = "auto";
 	};
 
 	Object.defineProperty(this, "width", {
