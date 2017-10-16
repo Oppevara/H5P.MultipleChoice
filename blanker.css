@@ -1,5 +1,6 @@
 /*	import */
 /*@import url('https://fonts.googleapis.com/css?family=Open+Sans');*/
+@font-face{font-family:'H5PFontIcons'; src:url(h5p.ttf) format('truetype'); font-weight:normal; font-style:normal;}
 
 /*	anim  */
 @keyframes pulse {
@@ -20,6 +21,7 @@
 	padding:5px;
 	margin-top:5px;
 	position:relative;
+	margin-bottom:30px;
 }
 
 .blanker .inner {
@@ -113,8 +115,8 @@
 /*	blank boxes */
 
 .blank {
-	asdborder:1px solid rgba(0,0,0,0.1);
-	border-radius:4px;
+	
+	border-radius:0.25em;
 	position:relative;
 }
 
@@ -123,36 +125,59 @@
 	position:absolute;
 	left:0;right:0;bottom:0;
 	height:0;
-	border-bottom: 2px solid rgba(160,160,160,1);
+	aborder-bottom: 2px solid rgba(160,160,160,1);
+
 }
 
 .blank:hover:before {
-	border-bottom: 2px solid rgba(120,180,255,1);
+	aborder-bottom: 2px solid rgba(120,180,255,1);
 }
 
 .blank:not([data-empty]):before {
-	border-bottom: 2px solid rgba(120,180,255,1);
+	aborder-bottom: 2px solid rgba(120,180,255,1);
 }
 
 .blank[data-correct]:before {
-	border-bottom: 2px solid rgba(120,255,180,1);
+	aborder-bottom: 2px solid rgba(120,255,180,1);
 }
 
 .blank[data-incorrect]:before {
-	border-bottom: 2px solid rgba(255,120,120,1);
+	aborder-bottom: 2px solid rgba(255,120,120,1);
 }
 
 .blanker .fill_blank {
+	padding-left:5px;
+	padding-right:5px;
 	display:inline-block;
 	min-width:40px;
 	text-align:center;
 	outline:none;	
+	border:1px solid #a0a0a0;
+	border-radius:0.25em;
+	font-family:arial;
+	color:black;
+	font-size:16px;
+	font-weight:normal;
+	height:22px;
+}
+
+.blanker .fill_blank:focus, .blanker .multiple_choice:focus {
+	border:1px solid rgba(59,153,252,1);
+	box-shadow: 0 0 10px rgba(59,153,252,1);
 }
 
 .blanker .multiple_choice {
 	outline:none;
 	border:none;
 	font-family:inherit;
+	border:1px solid #a0a0a0;
+	border-radius:0.25em;
+	font-family:arial;
+	color:black;
+	font-size:16px;
+	font-weight:normal;
+	background-color:white;
+	height:22px;
 }
 
 
@@ -170,27 +195,39 @@
 	height:16px;
 	display:inline-block;
 	margin-right:2px;
+
+	font-family:arial;
+	color:black;
+	font-size:16px;
+	font-weight:normal;
 }
 
 .blanker_hint:before {
 	position:absolute;
-	content:"i ";
-	background-color:rgba(0,0,0,0.4);
-	color:white;
-	font-family:arial;
-	font-size:12px;
+	content:"\e908";
+	color:rgba(59,153,252,1);
+	font-family:H5PFontIcons;
+	font-size:24px;
 	text-align:center;
 	left:0px;
-	top:0px;
-	width:14px;
-	height:14px;
-	margin:2px;
+	top:-10px;
+}
 
-	border-radius:8px;
+.blanker_hint:after {
+	position:absolute;
+	content:"\e905";
+	
+	color:white;
+	font-family:H5PFontIcons;
+	font-size:24px;
+	text-align:center;
+	left:0px;
+	top:-10px;
+
 }
 
 .blanker_hint:hover:before, .blanker_hint[data-active]:before {
-	background-color:rgba(120,180,255,1);
+	abackground-color:rgba(59,153,252,1);
 }
 
 .blanker_hint > * {
@@ -198,7 +235,7 @@
 	top:-25px;
 	left:0;
 	color:white;
-	background-color:rgba(120,180,255,1);
+	background-color:rgba(59,153,252,1);
 	padding:4px;
 	border-radius:4px;
 	min-width:40px;
@@ -215,7 +252,7 @@
 	width:0px;
 	border-left:5px solid transparent;
 	border-right:5px solid transparent;
-	border-top:5px solid rgba(120,180,255,1);
+	border-top:5px solid rgba(59,153,252,1);
 	
 }
 
