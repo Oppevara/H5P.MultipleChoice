@@ -4,6 +4,6 @@
     "name": "data",
     "type": "text",
     "optional": true,
-    "widget": "multiple_choice_editor"
+    "widget": "multiple_choice_drop_down_editor"
   }
 ]

@@ -5,7 +5,7 @@
   "patchVersion": 0,
   "runnable": 1,
   "author": "Karli Raudsepp",
-  "machineName": "H5P.MultipleChoice",
+  "machineName": "H5P.MultipleChoiceDropDown",
   "preloadedJs": [
     { "path": "ckeditor_webloader.js" },
     { "path": "util.js" },
@@ -18,7 +18,7 @@
     { "path": "style.css" }
   ],
   "editorDependencies": [ 
-    { "machineName": "H5PEditor.MultipleChoiceEditor", "majorVersion": 1, "minorVersion": 0 } 
+    { "machineName": "H5PEditor.MultipleChoiceDropDownEditor", "majorVersion": 1, "minorVersion": 0 } 
   ] 
 
 }

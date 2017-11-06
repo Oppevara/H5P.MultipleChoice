@@ -1,6 +1,6 @@
 var H5P = H5P || {};
 
-H5P.MultipleChoice = (function ($) {
+H5P.MultipleChoiceDropDown = (function ($) {
   function C(options, id) {
     this.$ = $(this);
     this.options = $.extend(true, {}, {}, options);
