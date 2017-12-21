@@ -162,6 +162,7 @@ class blanker {
 	build_as_multiple_choice() {
 		var inner = '<select class="multiple_choice" onChange="blanker.check_el(this.parentElement)">';
 		inner += '<option value=""></option>';
+		this.options.sort(function() {return Math.random() - 0.5;});
 		for (var i = 0; i < this.options.length; i++) {
 			inner += '<option value="' + this.options[i].text +'">' + this.options[i].text + '</option>';
 		}
@@ -241,7 +242,7 @@ class blanker_form {
 		toolbar +=			'<div class="filled_view">';
 		toolbar +=				'<div class="filled_count">0</div> / ';
 		toolbar += 				'<div class="filled_total">' + sections.length + '</div>';
-		toolbar +=				'<div class="blanker_button button_ok" onMouseUp="blanker_form.check(this.parentElement.parentElement.parentElement)">Ok!</div>';
+		toolbar +=				'<div class="blanker_button button_ok" onMouseUp="blanker_form.check(this.parentElement.parentElement.parentElement)">Check!</div>';
 		toolbar +=			'</div>';
 		toolbar +=			'<div class="score_view">';
 		toolbar +=				'<div class="score_count">0</div> / ';
