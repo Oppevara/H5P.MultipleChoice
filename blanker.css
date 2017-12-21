@@ -120,6 +120,14 @@
 	position:relative;
 }
 
+.blank[data-correct] select, .blank[data-correct] span {
+	background-color:#c2f9c1;
+}
+
+.blank[data-incorrect] select, .blank[data-incorrect] span {
+	background-color:#f9c1c6;
+}
+
 .blank:before {
 	content:"";
 	position:absolute;
