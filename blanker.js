@@ -27,6 +27,28 @@ var confirm_token = {
 	}
 }
 
+//	sub and superscript support
+
+function to_unicode_superscript(s) {
+	var palette = { "0" : "⁰", "1":"¹", "2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹" };
+	var constr = "";
+	for (var i = 0; i < s.length; i++) {
+		if (s[i] in palette) constr += palette[s[i]];
+		else constr += s[i];
+	}
+	return constr;
+}
+
+function to_unicode_subscript(s) {
+	var palette = { "0" : "₀", "1":"₁", "2":"₂","3":"₃","4":"₄","5":"₅","6":"₆","7":"₇","8":"₈","9":"₉" };
+	var constr = "";
+	for (var i = 0; i < s.length; i++) {
+		if (s[i] in palette) constr += palette[s[i]];
+		else constr += s[i];
+	}
+	return constr;
+}
+
 //	String section object for replacing blanker syntax with blanker objects
 class section {
 	constructor(idx_begin, idx_end, raw) {
@@ -80,11 +102,39 @@ class blanker {
 		this.ignore_whitespace = true;	// add syntax option later
 		this.ignore_case = true;		// add syntax option later
 		
+		//	filter subscript tag
+		while (true) {
+			var idx_begin = raw.indexOf("<sub>");
+			if (idx_begin == -1) break;
+			var idx_end = raw.indexOf("</sub>", idx_begin);
+			if (idx_end == -1) break;
+			if (idx_end - idx_begin < 5) break;
+
+			var inside = raw.substring(idx_begin + 5, idx_end);
+			inside = to_unicode_subscript(inside);
+
+			raw = raw.substring(0, idx_begin) + inside + raw.substring(idx_end + 6);
+		}
+
+		//	filter superscript tag
+		while (true) {
+			var idx_begin = raw.indexOf("<sup>");
+			if (idx_begin == -1) break;
+			var idx_end = raw.indexOf("</sup>", idx_begin);
+			if (idx_end == -1) break;
+			if (idx_end - idx_begin < 5) break;
+
+			var inside = raw.substring(idx_begin + 5, idx_end);
+			inside = to_unicode_superscript(inside);
+
+			raw = raw.substring(0, idx_begin) + inside + raw.substring(idx_end + 6);
+		}
+
 		//	remove tags (for simpler life with editors)
 		while (true) {
 			var idx_begin = raw.indexOf("<");
 			if (idx_begin == -1) break;
-			var idx_end = raw.indexOf(">");
+			var idx_end = raw.indexOf(">", idx_begin);
 			if (idx_end == -1) break;
 			raw = raw.substring(0, idx_begin) + raw.substring(idx_end + 1);
 		}
