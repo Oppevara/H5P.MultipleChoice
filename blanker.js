@@ -96,6 +96,10 @@ class blanker {
 		if (typeof raw === "object") {
 			raw = atob(raw.getAttribute("data-blanker64"))
 		}
+
+		//	get rid of encoding
+		var encode_remover = build("div", undefined, undefined, raw);
+		raw = encode_remover.innerText;
 		
 		//	basics
 		this.raw = raw;

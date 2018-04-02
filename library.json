@@ -2,13 +2,15 @@
   "title": "Fill The Multiple Choice",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 3,
+  "patchVersion": 5,
   "runnable": 1,
   "author": "Karli Raudsepp",
   "machineName": "H5P.MultipleChoiceDropDown",
+  "preloadedDependencies": [
+    { "machineName" : "H5P.KarliLibrary", "majorVersion" : 1, "minorVersion" : 0 }
+  ],
   "preloadedJs": [
     { "path": "ckeditor_webloader.js" },
-    { "path": "util.js" },
     { "path": "blanker.js" },
     { "path": "multiple_choice_wrapper.js" },
     { "path": "h5p.js" }
