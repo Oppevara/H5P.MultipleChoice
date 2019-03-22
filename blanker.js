@@ -57,7 +57,7 @@ class section {
 		this.raw = raw;
 		this.blanker = new blanker(this.raw);
 	}
-	
+
 	replace_into_string(s) {
 		return s.substring(0, this.idx_begin) + this.blanker.build() + s.substring(this.idx_end + 1);
 	}
@@ -73,11 +73,11 @@ section.get_sections_from_string = function(marker, s) {
 		var idx_end = s.indexOf(marker, idx_begin + marker.length);
 		if (idx_end === -1) break;
 		idx_at = idx_end + marker.length;
-		
+
 		sections.push(new section(idx_begin, idx_end, s.substring(idx_begin + 1, idx_end)));
 	}
-	
-	return sections;	
+
+	return sections;
 }
 
 
@@ -90,18 +90,18 @@ class blanker {
 	//	all options must be separated by /
 	//	all incorrect answers must end with ~
 	//	everything after : is considered to be a part of the hint
-	
+
 	constructor(raw) {
 		//	support for el constructor
 		if (typeof raw === "object") {
 			raw = atob(raw.getAttribute("data-blanker64"))
 		}
-		
+
 		//	basics
 		this.raw = raw;
 		this.ignore_whitespace = true;	// add syntax option later
 		this.ignore_case = true;		// add syntax option later
-		
+
 		//	filter subscript tag
 		while (true) {
 			var idx_begin = raw.indexOf("<sub>");
@@ -142,11 +142,11 @@ class blanker {
 			if (idx_end == -1) break;
 			raw = raw.substring(0, idx_begin) + raw.substring(idx_end + 1);
 		}
-		
+
 		//	deal with enclosing
 		if (raw.substring(0, 1) === "*") raw = raw.substring(1);
 		if (raw.substring(raw.length - 1, raw.length) === "*") raw = raw.substring(0, raw.length - 1);
-		
+
 		//	separate hint
 		this.hint = undefined;
 		var hint_idx = raw.indexOf(":");
@@ -154,7 +154,7 @@ class blanker {
 			this.hint = raw.substring(hint_idx + 1);
 			raw = raw.substring(0, hint_idx);
 		}
-		
+
 		//	separate options and determine type
 		this.options = [];
 		this.type = "fill_blank";
@@ -174,27 +174,27 @@ class blanker {
 			}
 		}
 	}
-	
+
 	check_answer(answer) {
 		if (this.ignore_whitespace) answer = answer.replace(/\s/g,'').replace(/&nbsp;/g, '');
 		if (this.ignore_case) answer = answer.toLowerCase();
 		for (var i = 0; i < this.options.length; i++) {
 			if (this.options[i].correct != true) continue;
-			
+
 			var option = this.options[i].text;
 			if (this.ignore_whitespace) option = option.replace(/\s/g,'');
 			if (this.ignore_case) option = option.toLowerCase();
-			
+
 			if (option == answer) return true;
 		}
 		return false;
 	}
-	
+
 	build_hint() {
 		if (this.hint == undefined) return "";
 		return '<span class="blanker_hint" onClick="if(this.getAttribute(' + "'data-active'" + ') === null) this.setAttribute(' + "'data-active',''" + '); else this.removeAttribute(' + "'data-active'" + ');"><span>' + this.hint + '</span></span>'
 	}
-	
+
 	build_wrap_blank(inner) {
 		var ret = '<span ';
 		ret += 'class="blank" ';
@@ -212,7 +212,7 @@ class blanker {
 		var inner = '<span contenteditable="true" class="fill_blank" ></span>';
 		return this.build_wrap_blank(inner);
 	}
-	
+
 	build_as_multiple_choice() {
 		var inner = '<select class="multiple_choice" onChange="blanker.check_el(this.parentElement)">';
 		inner += '<option value=""></option>';
@@ -223,7 +223,7 @@ class blanker {
 		inner += '</select>';
 		return this.build_wrap_blank(inner);
 	}
-	
+
 	build() {
 		if (this.type == "fill_blank") {
 			return this.build_as_fill_blank() + this.build_hint();
@@ -266,7 +266,7 @@ blanker.check_el = function(el) {
 		el.removeAttribute("data-confirm_token");
 		confirm_token.destroy(token);
 	}
-	
+
 	blanker_form.seek_update(el);
 	return false;
 }
@@ -276,14 +276,14 @@ blanker.check_el = function(el) {
 class blanker_form {
 	constructor(raw) {
 		this.raw = raw;
-		
+
 		//	create inner html
 		var inner_html = '<div class="inner">' + raw + '</div>';
 		var sections = section.get_sections_from_string("*", inner_html);
 		for (var i = sections.length - 1; i >= 0; i--) {
 			inner_html = sections[i].replace_into_string(inner_html);
-		}	
-		
+		}
+
 		//	create header
 		var header = '<div class="blanker" data-blanker_field_count="' + sections.length + '" ';
 		header += ">";
@@ -296,16 +296,16 @@ class blanker_form {
 		toolbar +=			'<div class="filled_view">';
 		toolbar +=				'<div class="filled_count">0</div> / ';
 		toolbar += 				'<div class="filled_total">' + sections.length + '</div>';
-		toolbar +=				'<div class="blanker_button button_ok" onMouseUp="blanker_form.check(this.parentElement.parentElement.parentElement)">Check!</div>';
+		toolbar +=				'<div class="blanker_button button_ok" onMouseUp="blanker_form.check(this.parentElement.parentElement.parentElement)">Kontrolli!</div>';
 		toolbar +=			'</div>';
 		toolbar +=			'<div class="score_view">';
 		toolbar +=				'<div class="score_count">0</div> / ';
 		toolbar += 				'<div class="score_total">' + sections.length + '</div>';
-		toolbar +=				'<div class="blanker_button button_retry" onMouseUp="blanker_form.reset(this.parentElement.parentElement.parentElement)">Retry?</div>';
+		toolbar +=				'<div class="blanker_button button_retry" onMouseUp="blanker_form.reset(this.parentElement.parentElement.parentElement)">Proovi uuesti?</div>';
 		toolbar +=			'</div>';
 		toolbar +=		'</div>';
-		
-		
+
+
 		//	create html
 		this.html = header + inner_html + toolbar + '</div>';
 	}
@@ -314,19 +314,19 @@ class blanker_form {
 blanker_form.reset = function(form_el) {
 	form_el.querySelector("[data-score_mode]").removeAttribute("data-score_mode");
 	form_el.querySelector("[data-blanker_count_complete]").removeAttribute("data-blanker_count_complete");
-	
+
 	var fill_blanks = form_el.querySelectorAll(".fill_blank");
 	for (var i = 0; i < fill_blanks.length; i++) {
 		fill_blanks[i].innerHTML = "";
 		fill_blanks[i].parentElement.setAttribute("data-empty", "");
 	}
-	
+
 	var multiple_choices = form_el.querySelectorAll(".multiple_choice");
 	for (var i = 0; i < multiple_choices.length; i++) {
 		multiple_choices[i].selectedIndex = 0;
 		multiple_choices[i].parentElement.setAttribute("data-empty", "");
 	}
-	
+
 	var blanks = form_el.querySelectorAll(".blank");
 	for (var i = 0; i < blanks.length; i++) {
 		blanks[i].removeAttribute("data-correct");
@@ -345,7 +345,7 @@ blanker_form.seek_update = function(el) {
 blanker_form.check = function(form_el) {
 	if (form_el.querySelector("[data-blanker_count_complete]") == null) return;
 	form_el.querySelector(".blanker_toolbar").setAttribute("data-score_mode", "");
-	
+
 	var blanks = form_el.querySelectorAll(".blank");
 	var score = 0;
 	for (var i = 0; i < blanks.length; i++) {
@@ -356,10 +356,10 @@ blanker_form.check = function(form_el) {
 			blanks[i].setAttribute("data-incorrect", "");
 		}
 	}
-	
+
 	var score_el = form_el.querySelector(".score_count");
 	score_el.innerHTML = score;
-	
+
 	var score_fraction = score / blanks.length;
 	var color = "rgb(" + Math.floor(Math.sqrt((1 - score_fraction) * 65025 * 0.5)) + "," + Math.floor(Math.sqrt(score_fraction * 65025 * 0.5)) + "," + Math.floor(0) + ")";
 	score_el.style.color = color;
@@ -378,5 +378,3 @@ blanker_form.update_count = function(form_el) {
 		count_el.parentElement.setAttribute("data-blanker_count_complete", "");
 	}
 }
-
-
