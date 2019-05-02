@@ -17,7 +17,7 @@
 
 /*	blanker  */
 
-.blanker {	
+.blanker {
 	padding:5px;
 	margin-top:5px;
 	position:relative;
@@ -33,15 +33,12 @@
 /*	toolbar  */
 
 .blanker_toolbar {
-	position:absolute;
-	right:0;
-	bottom:-25px;
-	
-	cursor:arrow;	
+	cursor:arrow;
 	font-family: 'Open Sans', arial;
 	font-size: 12px;
-	
+
 	height:23px;
+  text-align: center;
 }
 
 .blanker_toolbar .score_view div, .blanker_toolbar .filled_view div {
@@ -49,13 +46,11 @@
 }
 
 .blanker_toolbar .score_view {
-	position:absolute;
-	right:0px;
-	top:30px;
 	width:100px;
 	opacity:0;
 	transition:top 0.5s, opacity 0.5s;
 	font-weight:bold;
+  float: right;
 }
 
 .blanker_toolbar[data-score_mode] .score_view {
@@ -64,12 +59,10 @@
 }
 
 .blanker_toolbar .filled_view {
-	position:absolute;
-	right:0px;
-	top:0px;
 	width:100px;
 	opacity:1;
 	transition:top 0.5s, opacity 0.5s;
+  float: right;
 }
 
 .blanker_toolbar[data-score_mode] .filled_view {
@@ -115,7 +108,7 @@
 /*	blank boxes */
 
 .blank {
-	
+
 	border-radius:0.25em;
 	position:relative;
 }
@@ -159,7 +152,7 @@
 	display:inline-block;
 	min-width:40px;
 	text-align:center;
-	outline:none;	
+	outline:none;
 	border:1px solid #a0a0a0;
 	border-radius:0.25em;
 	font-family:arial;
@@ -224,7 +217,7 @@
 .blanker_hint:after {
 	position:absolute;
 	content:"\e905";
-	
+
 	color:white;
 	font-family:H5PFontIcons;
 	font-size:24px;
@@ -261,7 +254,7 @@
 	border-left:5px solid transparent;
 	border-right:5px solid transparent;
 	border-top:5px solid rgba(59,153,252,1);
-	
+
 }
 
 .blanker_hint:hover > span, .blanker_hint[data-active] > span {
